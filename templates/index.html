@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>IT Assets Inventory System</title>
+
+
+</head>
+<style>
+    body {
+    font-family: Arial, sans-serif;
+    background: #f4f6f8;
+    margin: 0;
+    padding: 0;
+}
+
+/* Header */
+.header {
+    background: #1f2937;
+    color: white;
+    padding: 25px;
+    text-align: center;
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+
+.header-text {
+    text-align: left;
+}
+
+.header h1 {
+    margin: 0;
+}
+
+.header p {
+    margin: 5px 0 0;
+    color: #d1d5db;
+    text-align: center;
+}
+
+/* Main Container */
+.container {
+    width: 90%;
+    max-width: 1100px;
+    margin: 30px auto;
+}
+
+/* Card */
+.card {
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    margin-top: 0;
+    color: #1f2937;
+}
+
+/* Dashboard */
+.dashboard {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.dashboard-card {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    border-left: 5px solid #2563eb;
+    transition: 0.2s;
+}
+
+.dashboard-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+}
+
+.dashboard-card h3 {
+    margin: 0 0 10px;
+    color: #374151;
+    font-size: 16px;
+}
+
+.dashboard-card p {
+    margin: 0;
+    color: #1f2937;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+/* Dashboard Colors */
+.dashboard-card:nth-child(1) {
+    border-left-color: #2563eb;
+}
+
+.dashboard-card:nth-child(2) {
+    border-left-color: #16a34a;
+}
+
+.dashboard-card:nth-child(3) {
+    border-left-color: #0891b2;
+}
+
+.dashboard-card:nth-child(4) {
+    border-left-color: #f59e0b;
+}
+
+.dashboard-card:nth-child(5) {
+    border-left-color: #dc2626;
+}
+
+.dashboard-card:nth-child(6) {
+    border-left-color: #6b7280;
+}
+
+/* Form */
+label {
+    display: block;
+    font-weight: bold;
+    margin-top: 8px;
+    color: #374151;
+}
+
+input,
+select {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0 15px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+
+input:focus,
+select:focus {
+    border-color: #2563eb;
+    outline: none;
+}
+
+/* Add Button */
+.add-btn {
+    background: #2563eb;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.add-btn:hover {
+    background: #1d4ed8;
+}
+
+/* Search & Filter */
+.filter-area {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.search-box {
+    flex: 1;
+    min-width: 220px;
+}
+
+.department-filter,
+.status-filter {
+    width: 230px;
+}
+
+.filter-area input,
+.filter-area select {
+    margin: 0;
+}
+
+/* Table */
+.table-container {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    min-width: 1000px;
+}
+
+th,
+td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: left;
+}
+
+th {
+    background: #1f2937;
+    color: white;
+}
+
+tr:nth-child(even) {
+    background: #f9fafb;
+}
+
+tr:hover {
+    background: #f1f5f9;
+}
+
+/* View Button */
+.view-btn {
+    background: #0891b2;
+    color: white;
+    text-decoration: none;
+    padding: 7px 12px;
+    border-radius: 5px;
+    font-size: 13px;
+    margin-right: 5px;
+}
+
+.view-btn:hover {
+    background: #0e7490;
+}
+
+/* Edit Button */
+.edit-btn {
+    background: #1b0bf5;
+    color: white;
+    text-decoration: none;
+    padding: 7px 12px;
+    border-radius: 5px;
+    font-size: 13px;
+    margin-right: 5px;
+}
+
+.edit-btn:hover {
+    background: #d97706;
+}
+
+/* Delete Button */
+.delete-btn {
+    background: #dc2626;
+    color: white;
+    text-decoration: none;
+    padding: 7px 12px;
+    border-radius: 5px;
+    font-size: 13px;
+}
+
+.delete-btn:hover {
+    background: #b91c1c;
+}
+
+/* Empty Message */
+.no-data {
+    text-align: center;
+    padding: 25px;
+    color: #6b7280;
+}
+
+/* Export Button */
+.export-btn {
+    display: inline-block;
+    background: #16a34a;
+    color: white;
+    text-decoration: none;
+    padding: 10px 16px;
+    border-radius: 6px;
+    margin-bottom: 18px;
+    font-size: 14px;
+}
+
+.export-btn:hover {
+    background: #15803d;
+}
+
+/* Backup Button */
+.backup-btn {
+    display: inline-block;
+    background: #7c3aed;
+    color: white;
+    text-decoration: none;
+    padding: 10px 16px;
+    border-radius: 6px;
+    margin-bottom: 18px;
+    margin-left: 8px;
+    font-size: 14px;
+}
+
+.backup-btn:hover {
+    background: #6d28d9;
+}
+
+/* Asset List */
+.asset-list-card {
+    margin-top: 25px;
+}
+
+/* Mobile */
+@media (max-width: 700px) {
+
+    .dashboard {
+        grid-template-columns: 1fr;
+    }
+
+    .container {
+        width: 94%;
+    }
+
+    .card {
+        padding: 18px;
+    }
+
+    .filter-area {
+        flex-direction: column;
+    }
+
+    .department-filter,
+    .status-filter {
+        width: 100%;
+    }
+
+    .header h1 {
+        font-size: 24px;
+    }
+
+    /* Fix Card Appearance */
+
+.card {
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.10);
+    margin-bottom: 25px;
+}
+
+/* Header */
+.header {
+    background: #1f2937;
+    color: white;
+    padding: 25px;
+    text-align: center;
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+
+.header-text {
+    text-align: left;
+}
+
+.header-text h1 {
+    margin: 0;
+}
+
+.header-text p {
+    margin: 5px 0 0;
+    color: #d1d5db;
+}
+
+/* Dashboard Card */
+.dashboard-card {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.10);
+    text-align: center;
+    border-left: 5px solid #2563eb;
+}
+}
+</style>
+
+
+<body>
+
+    <!-- Header -->
+    <div class="header">
+
+        <div class="header-content">
+
+            <div class="header-text">
+
+                <h1>IT ASSETS INVENTORY SYSTEM</h1>
+
+                <p>System Engineering Limited</p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="container">
+
+
+        <!-- Dashboard -->
+
+        <div class="dashboard">
+
+            <div class="dashboard-card">
+                <h3>Total Assets</h3>
+                <p>{{ total_assets }}</p>
+            </div>
+
+            <div class="dashboard-card">
+                <h3>Assigned</h3>
+                <p>{{ assigned }}</p>
+            </div>
+
+            <div class="dashboard-card">
+                <h3>Available</h3>
+                <p>{{ available }}</p>
+            </div>
+
+            <div class="dashboard-card">
+                <h3>Maintenance</h3>
+                <p>{{ maintenance }}</p>
+            </div>
+
+            <div class="dashboard-card">
+                <h3>Damaged</h3>
+                <p>{{ damaged }}</p>
+            </div>
+
+            <div class="dashboard-card">
+                <h3>Retired</h3>
+                <p>{{ retired }}</p>
+            </div>
+
+        </div>
+
+
+        <!-- Add New Asset -->
+
+        <div class="card">
+
+            <h2>Add New Asset</h2>
+
+            <form action="/add" method="POST">
+
+
+                <label>Asset Name</label>
+
+                <input
+                    type="text"
+                    name="asset_name"
+                    placeholder="Enter asset name"
+                    required
+                >
+
+
+                <label>Asset Type</label>
+
+                <select name="asset_type" required>
+
+                    <option value="">Select Asset Type</option>
+
+                    <option value="Computer">Computer</option>
+                    <option value="Laptop">Laptop</option>
+                    <option value="Router">Router</option>
+                    <option value="Switch">Switch</option>
+                    <option value="Printer">Printer</option>
+                    <option value="Monitor">Monitor</option>
+                    <option value="UPS">UPS</option>
+                    <option value="Server">Server</option>
+                    <option value="Other">Other</option>
+
+                </select>
+
+
+                <label>Serial Number</label>
+
+                <input
+                    type="text"
+                    name="serial_number"
+                    placeholder="Enter serial number"
+                    required
+                >
+
+
+                <label>Assigned To</label>
+
+                <input
+                    type="text"
+                    name="assigned_to"
+                    placeholder="Enter employee name"
+                    required
+                >
+
+
+                <label>Employee ID</label>
+
+                <input
+                    type="text"
+                    name="employee_id"
+                    placeholder="Enter employee ID"
+                    required
+                >
+
+
+                <label>Department</label>
+
+                <select name="department" required>
+
+                    <option value="">Select Department</option>
+
+                    <option value="SCADA">SCADA</option>
+                    <option value="Service Centre">Service Centre</option>
+                    <option value="MKT">MKT</option>
+                    <option value="Utility">Utility</option>
+                    <option value="IT">IT</option>
+                    <option value="LPM">LPM</option>
+                    <option value="MOS">MOS</option>
+                    <option value="Project">Project</option>
+                    <option value="BD">BD</option>
+                    <option value="Factory">Factory</option>
+                    <option value="Infiux">Infiux</option>
+                    <option value="SEL DoT">SEL DoT</option>
+
+                </select>
+
+
+                <label>Status</label>
+
+                <select name="status" required>
+
+                    <option value="">Select Status</option>
+
+                    <option value="Assigned">Assigned</option>
+                    <option value="Available">Available</option>
+                    <option value="Maintenance">Maintenance</option>
+                    <option value="Damaged">Damaged</option>
+                    <option value="Retired">Retired</option>
+
+                </select>
+
+
+                <button type="submit" class="add-btn">
+                    Add Asset
+                </button>
+
+            </form>
+
+        </div>
+
+
+        <!-- Asset List -->
+
+        <div class="card asset-list-card">
+
+            <h2>Asset List</h2>
+
+
+            <a href="/export" class="export-btn">
+                Export to Excel
+            </a>
+
+            <a href="/backup" class="backup-btn">
+                Backup Database
+            </a>
+
+
+            <!-- Search + Department + Status Filter -->
+
+            <div class="filter-area">
+
+                <input
+                    type="text"
+                    id="searchInput"
+                    class="search-box"
+                    placeholder="Search asset, serial number, employee..."
+                    onkeyup="filterAssets()"
+                >
+
+
+                <select
+                    id="departmentFilter"
+                    class="department-filter"
+                    onchange="filterAssets()"
+                >
+
+                    <option value="">All Departments</option>
+
+                    <option value="SCADA">SCADA</option>
+                    <option value="Service Centre">Service Centre</option>
+                    <option value="MKT">MKT</option>
+                    <option value="Utility">Utility</option>
+                    <option value="IT">IT</option>
+                    <option value="LPM">LPM</option>
+                    <option value="MOS">MOS</option>
+                    <option value="Project">Project</option>
+                    <option value="BD">BD</option>
+                    <option value="Factory">Factory</option>
+                    <option value="Infiux">Infiux</option>
+                    <option value="SEL DoT">SEL DoT</option>
+
+                </select>
+
+
+                <select
+                    id="statusFilter"
+                    class="status-filter"
+                    onchange="filterAssets()"
+                >
+
+                    <option value="">All Status</option>
+
+                    <option value="Assigned">Assigned</option>
+                    <option value="Available">Available</option>
+                    <option value="Maintenance">Maintenance</option>
+                    <option value="Damaged">Damaged</option>
+                    <option value="Retired">Retired</option>
+
+                </select>
+
+            </div>
+
+
+            <!-- Asset Table -->
+
+            <div class="table-container">
+
+                <table id="assetTable">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>Asset Name</th>
+                            <th>Asset Type</th>
+                            <th>Serial Number</th>
+                            <th>Assigned To</th>
+                            <th>Employee ID</th>
+                            <th>Department</th>
+                            <th>Status</th>
+                            <th>Action</th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+                        {% for asset in assets %}
+
+                        <tr>
+
+                            <td>
+                                {{ asset["asset_name"] }}
+                            </td>
+
+                            <td>
+                                {{ asset["asset_type"] }}
+                            </td>
+
+                            <td>
+                                {{ asset["serial_number"] }}
+                            </td>
+
+                            <td>
+                                {{ asset["assigned_to"] }}
+                            </td>
+
+                            <td>
+                                {{ asset["employee_id"] or '' }}
+                            </td>
+
+                            <td>
+                                {{ asset["department"] or '' }}
+                            </td>
+
+                            <td>
+                                {{ asset["status"] or 'Available' }}
+                            </td>
+
+                            <td>
+
+                                <a
+                                    href="/view/{{ asset['id'] }}"
+                                    class="view-btn"
+                                >
+                                    View
+                                </a>
+
+
+                                <a
+                                    href="/edit/{{ asset['id'] }}"
+                                    class="edit-btn"
+                                >
+                                    Edit
+                                </a>
+
+
+                                <a
+                                    href="/delete/{{ asset['id'] }}"
+                                    class="delete-btn"
+                                    onclick="return confirm('Are you sure you want to delete this asset?');"
+                                >
+                                    Delete
+                                </a>
+
+                            </td>
+
+                        </tr>
+
+
+                        {% else %}
+
+                        <tr>
+
+                            <td colspan="8" class="no-data">
+                                No assets found.
+                            </td>
+
+                        </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- JavaScript -->
+
+<script>
+
+function filterAssets() {
+
+    let searchText = document
+        .getElementById("searchInput")
+        .value
+        .toLowerCase()
+        .trim();
+
+    let department = document
+        .getElementById("departmentFilter")
+        .value
+        .toLowerCase()
+        .trim();
+
+    let status = document
+        .getElementById("statusFilter")
+        .value
+        .toLowerCase()
+        .trim();
+
+    let rows = document.querySelectorAll("#assetTable tbody tr");
+
+
+    rows.forEach(function(row) {
+
+        // No assets found row
+        if (row.cells.length < 8) {
+            return;
+        }
+
+
+        let rowText = row.innerText
+            .toLowerCase()
+            .trim();
+
+        let departmentText = row.cells[5]
+            .innerText
+            .toLowerCase()
+            .trim();
+
+        let statusText = row.cells[6]
+            .innerText
+            .toLowerCase()
+            .trim();
+
+
+        let searchMatch =
+            searchText === "" ||
+            rowText.includes(searchText);
+
+        let departmentMatch =
+            department === "" ||
+            departmentText === department;
+
+        let statusMatch =
+            status === "" ||
+            statusText === status;
+
+
+        if (
+            searchMatch &&
+            departmentMatch &&
+            statusMatch
+        ) {
+
+            row.style.display = "";
+
+        } else {
+
+            row.style.display = "none";
+
+        }
+
+    });
+
+}
+
+</script>
+
+</body>
+</html>
+
+
+</body>
+
+</html>

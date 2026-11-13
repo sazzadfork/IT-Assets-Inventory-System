@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Edit Asset</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 600px;
+            margin: 40px auto;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            color: #1f2937;
+            margin-top: 0;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            color: #374151;
+            margin-top: 8px;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0 15px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            box-sizing: border-box;
+        }
+
+        input:focus,
+        select:focus {
+            border-color: #2563eb;
+            outline: none;
+        }
+
+        button {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #1d4ed8;
+        }
+
+        .back {
+            display: inline-block;
+            margin-top: 15px;
+            color: #2563eb;
+            text-decoration: none;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="card">
+
+            <h2>Edit Asset</h2>
+
+            <form method="POST">
+
+                <!-- Asset Name -->
+                <label>Asset Name</label>
+
+                <input
+                    type="text"
+                    name="asset_name"
+                    value="{{ asset['asset_name'] }}"
+                    required
+                >
+
+
+                <!-- Asset Type -->
+                <label>Asset Type</label>
+
+                <select name="asset_type" required>
+
+                    <option value="Computer"
+                        {% if asset['asset_type'] == 'Computer' %}selected{% endif %}>
+                        Computer
+                    </option>
+
+                    <option value="Laptop"
+                        {% if asset['asset_type'] == 'Laptop' %}selected{% endif %}>
+                        Laptop
+                    </option>
+
+                    <option value="Router"
+                        {% if asset['asset_type'] == 'Router' %}selected{% endif %}>
+                        Router
+                    </option>
+
+                    <option value="Switch"
+                        {% if asset['asset_type'] == 'Switch' %}selected{% endif %}>
+                        Switch
+                    </option>
+
+                    <option value="Printer"
+                        {% if asset['asset_type'] == 'Printer' %}selected{% endif %}>
+                        Printer
+                    </option>
+
+                    <option value="Monitor"
+                        {% if asset['asset_type'] == 'Monitor' %}selected{% endif %}>
+                        Monitor
+                    </option>
+
+                    <option value="UPS"
+                        {% if asset['asset_type'] == 'UPS' %}selected{% endif %}>
+                        UPS
+                    </option>
+
+                    <option value="Server"
+                        {% if asset['asset_type'] == 'Server' %}selected{% endif %}>
+                        Server
+                    </option>
+
+                    <option value="Other"
+                        {% if asset['asset_type'] == 'Other' %}selected{% endif %}>
+                        Other
+                    </option>
+
+                </select>
+
+
+                <!-- Serial Number -->
+                <label>Serial Number</label>
+
+                <input
+                    type="text"
+                    name="serial_number"
+                    value="{{ asset['serial_number'] }}"
+                    required
+                >
+
+
+                <!-- Employee ID -->
+                <label>Employee ID</label>
+
+                <input
+                    type="text"
+                    name="employee_id"
+                    value="{{ asset['employee_id'] or '' }}"
+                    required
+                >
+
+
+                <!-- Department -->
+                <label>Department</label>
+
+                <select name="department" required>
+
+                    <option value="SCADA"
+                        {% if asset['department'] == 'SCADA' %}selected{% endif %}>
+                        SCADA
+                    </option>
+
+                    <option value="Service Centre"
+                        {% if asset['department'] == 'Service Centre' %}selected{% endif %}>
+                        Service Centre
+                    </option>
+
+                    <option value="MKT"
+                        {% if asset['department'] == 'MKT' %}selected{% endif %}>
+                        MKT
+                    </option>
+
+                    <option value="Utility"
+                        {% if asset['department'] == 'Utility' %}selected{% endif %}>
+                        Utility
+                    </option>
+
+                    <option value="IT"
+                        {% if asset['department'] == 'IT' %}selected{% endif %}>
+                        IT
+                    </option>
+
+                    <option value="LPM"
+                        {% if asset['department'] == 'LPM' %}selected{% endif %}>
+                        LPM
+                    </option>
+
+                    <option value="MOS"
+                        {% if asset['department'] == 'MOS' %}selected{% endif %}>
+                        MOS
+                    </option>
+
+                    <option value="Project"
+                        {% if asset['department'] == 'Project' %}selected{% endif %}>
+                        Project
+                    </option>
+
+                    <option value="BD"
+                        {% if asset['department'] == 'BD' %}selected{% endif %}>
+                        BD
+                    </option>
+
+                    <option value="Factory"
+                        {% if asset['department'] == 'Factory' %}selected{% endif %}>
+                        Factory
+                    </option>
+
+                    <option value="Infiux"
+                        {% if asset['department'] == 'Infiux' %}selected{% endif %}>
+                        Infiux
+                    </option>
+
+                    <option value="SEL DoT"
+                        {% if asset['department'] == 'SEL DoT' %}selected{% endif %}>
+                        SEL DoT
+                    </option>
+
+                </select>
+
+
+                <!-- Assigned To -->
+                <label>Assigned To</label>
+
+                <input
+                    type="text"
+                    name="assigned_to"
+                    value="{{ asset['assigned_to'] }}"
+                    required
+                >
+
+
+                <!-- Status -->
+                <label>Status</label>
+
+                <select name="status" required>
+
+                    <option value="Assigned"
+                        {% if asset['status'] == 'Assigned' %}selected{% endif %}>
+                        Assigned
+                    </option>
+
+                    <option value="Available"
+                        {% if asset['status'] == 'Available' %}selected{% endif %}>
+                        Available
+                    </option>
+
+                    <option value="Maintenance"
+                        {% if asset['status'] == 'Maintenance' %}selected{% endif %}>
+                        Maintenance
+                    </option>
+
+                    <option value="Damaged"
+                        {% if asset['status'] == 'Damaged' %}selected{% endif %}>
+                        Damaged
+                    </option>
+
+                    <option value="Retired"
+                        {% if asset['status'] == 'Retired' %}selected{% endif %}>
+                        Retired
+                    </option>
+
+                </select>
+
+
+                <!-- Update -->
+                <button type="submit">
+                    Update Asset
+                </button>
+
+            </form>
+
+
+            <a class="back" href="/">
+                ← Back to Asset List
+            </a>
+
+        </div>
+
+    </div>
+
+</body>
+</html>
